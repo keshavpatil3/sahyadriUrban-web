@@ -1,0 +1,132 @@
+/* You can add global styles to this file, and also import other style files */
+
+::ng-deep ::before, ::after {
+    // box-sizing: border-box;
+    border-width: 0;
+    /* border-style: solid; */
+    border-color: #ffffff;
+}
+.formborder{
+    border: 1px solid gray ;
+    border-radius: 10px;
+  
+  }
+  :host ::ng-deep .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+
+:host ::ng-deep .mat-mdc-form-field-infix {
+    min-height: 40px;
+}
+:host ::ng-deep .mdc-text-field .mdc-floating-label {
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+:host ::ng-deep .mat-mdc-icon-button.mat-mdc-button-base {
+    width: 35px;
+    height: 35px;
+    padding: 6px;
+}
+:host ::ng-deep .mdc-notched-outline__notch
+{
+  border-right: none;
+}
+
+.hidden {
+    display: none;
+  }
+  
+  .upload-button {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: rgba(17, 77, 161, 0.4); /* Button background color */
+    color: #fff; /* Button text color */
+    text-align: center;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .upload-button:hover {
+    background-color: #0056b3; /* Button hover color */
+  }
+  #preview-container {
+    margin-top: 10px;
+  }
+  
+  #image-preview {
+    max-width: 100%;
+    max-height: 150px;
+    display: block;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+
+  ::ng-deep .mdc-data-table__cell {
+    box-sizing: border-box;
+    overflow: visible;
+    text-align: left;
+    text-overflow: ellipsis;
+    font-size: 12px;
+
+
+}
+
+::ng-deep .mat-mdc-header-cell {
+  border-bottom-color: var(--mat-table-row-item-outline-color, rgba(0, 0, 0, 0.12));
+  border-bottom-width: var(--mat-table-row-item-outline-width, 1px);
+  border-bottom-style: solid;
+  letter-spacing: var(--mat-table-header-headline-tracking);
+  font-weight: inherit;
+  line-height: inherit;
+  box-sizing: border-box;
+  text-overflow: ellipsis;
+  overflow: visible;
+  outline: none;
+  text-align: left;
+}
+.nc{
+  text-align:center;
+  margin-top:15%; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height:0px;
+  font-size: 18px; /* Adjust font size if needed */
+  color: #757575;
+}
+.centerData{
+  text-align:center;
+  padding-top: 17px; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height:0px;
+  font-size: 15px; /* Adjust font size if needed */
+  color: #757575;
+}
+.form-control:focus {
+  color: var(--bs-body-color);
+  background-color: var(--bs-body-bg);
+  border-color: #86b7fe;
+  outline: 0;
+  box-shadow:none;
+}
+
+.transparent-backdrop {
+  background: none !important; /* Removes the dark overlay effect */
+  pointer-events: none; /* Allows clicking through the backdrop */
+}
+
+.loader-panel {
+  pointer-events: auto !important; /* Ensures loader is still interactive */
+  background: none; /* Makes the loader panel transparent */
+  box-shadow: none !important; /* Removes default shadow */
+}
+.mat-mdc-option {
+  min-height: 30px;
+}

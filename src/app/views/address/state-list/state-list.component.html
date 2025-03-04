@@ -1,0 +1,47 @@
+<div class="flex flex-col md:flex-row justify-end" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
+
+
+    <div class="md:w-[100px] lg:w-1/6 xl:w-2/6"></div>
+    <mat-form-field class="brand mr-2"  appearance="outline">
+        <input matInput type="text" class="form-control" placeholder="State Name" aria-label="Username"
+        aria-describedby="addon-wrapping" oninput="this.value = this.value.toUpperCase()"
+        (keyup)="onKeyUpEvent($event)">
+    </mat-form-field>
+    <button mat-raised-button class="mr-2" color="primary" (click)="openPopUp({}, true)">{{"ADD"}}
+      State</button>
+  </div>
+  <mat-card class="p-0" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
+    <mat-card-content class="p-0">
+      <div>
+        <table mat-table [dataSource]="dataSource">
+  
+          <!-- Position Column -->
+          <ng-container matColumnDef="position">
+            <th mat-header-cell *matHeaderCellDef>Sr.No. </th>
+            <td mat-cell *matCellDef="let element;let i=index"> {{i+1}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="companyName">
+            <th mat-header-cell *matHeaderCellDef>State Name</th>
+            <td mat-cell *matCellDef="let element"> {{element.stateName}} </td>
+          </ng-container>
+        
+          <ng-container matColumnDef="edit">
+            <th mat-header-cell *matHeaderCellDef> Action </th>
+            <td mat-cell *matCellDef="let element"> <button mat-icon-button mat-sm-button color="primary"
+                class="mr-4 rtl:ml-4" (click)="openPopUp(element)">
+                <mat-icon>edit</mat-icon>
+              </button></td>
+  
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+  
+      </div>
+      <mat-paginator #paginator [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize"
+        (page)="pageChanged($event)" [showFirstLastButtons]="false" [hidePageSize]="hidePageSize" [disabled]="disabled">
+      </mat-paginator>
+    </mat-card-content>
+  </mat-card>

@@ -1,0 +1,22 @@
+<div class="sidebar-panel">
+    <div id="scroll-area" [perfectScrollbar] class="navigation-hold flex flex-col">
+        <div class="sidebar-hold">
+
+            <!-- App Logo -->
+            <div class="branding">
+                <img src="assets/images/egret.png" alt="" class="app-logo">
+                <span class="app-logo-text">SAHYADRI URBAN</span>
+
+
+                <span style="margin: auto" *ngIf="layoutConf.sidebarStyle !== 'compact'"></span>
+                <div class="sidebar-compact-switch" [ngClass]="{active: layoutConf.sidebarCompactToggle}"
+                    (click)="toggleCollapse()" *ngIf="layoutConf.sidebarStyle !== 'compact'"><span></span></div>
+            </div>
+            <!-- Sidebar user -->
+       
+            <!-- Navigation -->
+            <app-sidenav [items]="menuItems" [hasIconMenu]="hasIconTypeMenuItem"
+                [iconMenuTitle]="iconTypeMenuTitle"></app-sidenav>
+        </div>
+    </div>
+</div>
