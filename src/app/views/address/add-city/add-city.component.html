@@ -1,1 +1,118 @@
-<p>add-city works!</p>
+<mat-card class="p-0">
+    <mat-card-title class="">
+        <h1 class="text-lg mb-4">{{ data.title }}</h1>
+    </mat-card-title>
+    <mat-divider></mat-divider>
+    <mat-card-content class="!pt-4">
+        <form [formGroup]="addCityForm">
+            <div class="flex flex-wrap">
+                <div class="w-full md:w-1/2 md:pr-6">
+                    <div class="!pb-4">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>State</mat-label>
+                            <mat-select required formControlName="stateName">
+                                <mat-option (onSelectionChange)="onStateSelection($event.source.value)" style="font-size: 12px;" *ngFor="let element of StateData"
+                                    oninput="this.value = this.value.toUpperCase()"
+                                    [value]="element.state">{{element.state}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                    </div>
+
+                </div>
+
+                <div class="w-full md:w-1/2 md:pr-6">
+                    <div class="!pb-4">
+                        <mat-form-field class="full-width" place appearance="outline">
+                            <mat-label>District</mat-label>
+                            <mat-select (selectionChange)="onDistSelection($event.value)" required formControlName="district">
+                                <mat-option  style="font-size: 12px;" *ngFor="let element of districtData"
+                                    oninput="this.value = this.value.toUpperCase()"
+                                    [value]="element.district">{{element.district}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                    </div>
+
+                </div>
+                <div class="w-full md:w-1/2 md:pr-6">
+                    <div class="!pb-4">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Taluka</mat-label>
+                            <mat-select required formControlName="taluka">
+                                <mat-option style="font-size: 12px;" *ngFor="let element of talukaData"
+                                    oninput="this.value = this.value.toUpperCase()"
+                                    [value]="element.taluka">{{element.taluka}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                    </div>
+                </div>
+
+                <div class="w-full md:w-1/2 md:pr-6">
+                    <div class="!pb-4">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>City</mat-label>
+                            <input matInput  placeholder="Base Location" [maxLength]="30"
+                                formControlName="city" name="addressDetails"
+                                oninput="this.value = this.value.toUpperCase()" autocomplete="off" required>
+                        </mat-form-field>
+
+                    </div>
+                </div>
+                    <div class="w-full md:w-1/2 md:pr-6">
+                        <div class="!pb-4">
+                            <mat-form-field class="full-width" appearance="outline">
+                                <mat-label>Pin Code</mat-label>
+                                <input matInput  placeholder="pinCode" [maxLength]="6" formControlName="zipCode"
+                                    (keyup)="checkPinCode($event)" autocomplete="off" required numbersOnly>
+                            </mat-form-field>
+
+                        </div>
+                    </div>
+
+                    <!-- <div class="w-full md:w-1/2 md:pr-6">
+                        <div class="!pb-4">
+                            <mat-form-field class="full-width" appearance="outline">
+
+                                <mat-label>Country</mat-label>
+                                <input matInput  placeholder="Country" id="Country" autocomplete="off"
+                                    formControlName="countryName" type="text" required readonly="country"
+                                    oninput="this.value = this.value.toUpperCase()">
+                            </mat-form-field>
+
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/2 md:pr-6">
+                        <div class="!pb-4">
+                            <mat-form-field class="full-width" appearance="outline">
+                                <mat-label>State</mat-label>
+                                <input matInput  placeholder="state" id="state" formControlName="stateName" type="text"
+                                    oninput="this.value = this.value.toUpperCase()" readonly="state">
+                            </mat-form-field>
+
+                        </div>
+
+                    </div> -->
+                 
+               
+
+                 
+             
+            </div>
+            <div class="flex">
+                <button mat-raised-button color="primary" *ngIf="editForm" (click)="submit()"
+                    [disabled]="addCityForm.invalid">
+                    {{ "SAVE" }}
+                </button>
+                <!-- <button mat-raised-button color="primary" (click)="updateVehicleBrand()" *ngIf="!editForm"
+                    [disabled]="addVehicleBrandForm.invalid">
+                    {{ "UPDATE" }}
+                </button> -->
+                <button mat-raised-button color="warn" class="ms-2" type="button" (click)="dialogRef.close(false)">
+                    Cancel
+                </button>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>

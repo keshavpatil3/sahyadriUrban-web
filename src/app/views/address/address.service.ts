@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ApiService, } from 'app/shared/services/auth/api.service';
 import { catchError, Observable, throwError } from 'rxjs';
 
 @Injectable({
@@ -7,15 +8,142 @@ import { catchError, Observable, throwError } from 'rxjs';
 })
 export class AddressService {
 
-  constructor( private http: HttpClient) { }
+  constructor(private http: HttpClient, private apiService: ApiService) { }
 
-  public addNewState(data:any): Observable<any> {
+  public addStateMaster(data: any): Observable<any> {
 
-    // let baseUrl = this.ApiService.getBaseUrl();
-    // let controllerUrl = this.ApiService.getBaseControllerUrl();
-    // let Url = baseUrl + controllerUrl + "/master" + "/vehicle" + "/fetchAllVehicles";
-    let Url=''
-    return this.http.get(Url)
+    let baseUrl = this.apiService.getBaseUrl();
+    let controllerUrl = this.apiService.getBaseControllerUrl();
+    let Url = baseUrl + controllerUrl + "/address" + "/addStateMaster";
+    return this.http.post(Url, data)
+      .pipe(
+        catchError((err) => {
+          return throwError(err);
+        })
+      )
+  }
+
+  public addDistrictMaster(data: any): Observable<any> {
+
+    let baseUrl = this.apiService.getBaseUrl();
+    let controllerUrl = this.apiService.getBaseControllerUrl();
+    let Url = baseUrl + controllerUrl + "/address" + "/addDistrictMaster";
+    return this.http.post(Url, data)
+      .pipe(
+        catchError((err) => {
+          return throwError(err);
+        })
+      )
+  }
+
+  public addCityMaster(data: any): Observable<any> {
+
+    let baseUrl = this.apiService.getBaseUrl();
+    let controllerUrl = this.apiService.getBaseControllerUrl();
+    let Url = baseUrl + controllerUrl + "/address" + "/addCityMaster";
+    return this.http.post(Url, data)
+      .pipe(
+        catchError((err) => {
+          return throwError(err);
+        })
+      )
+  }
+
+  public addTalukaMaster(data: any): Observable<any> {
+
+    let baseUrl = this.apiService.getBaseUrl();
+    let controllerUrl = this.apiService.getBaseControllerUrl();
+    let Url = baseUrl + controllerUrl + "/address" + "/addTalukaMaster";
+    return this.http.post(Url, data)
+      .pipe(
+        catchError((err) => {
+          return throwError(err);
+        })
+      )
+  }
+
+
+  public addLocationMaster(data: any): Observable<any> {
+
+    let baseUrl = this.apiService.getBaseUrl();
+    let controllerUrl = this.apiService.getBaseControllerUrl();
+    let Url = baseUrl + controllerUrl + "/address" + "/addLocationMaster";
+    return this.http.post(Url, data)
+      .pipe(
+        catchError((err) => {
+          return throwError(err);
+        })
+      )
+  }
+  public fetchStateMaster(): Observable<any> {
+    const headers = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        "Access-Control-Allow-Origin": "*"
+      })
+    };
+    let baseUrl = this.apiService.getBaseUrl();
+    let controllerUrl = this.apiService.getBaseControllerUrl();
+    let Url = baseUrl + controllerUrl + "/address" + "/fetchStateMaster"
+
+    return this.http.get(Url, headers)
+      .pipe(
+        catchError((err) => {
+          return throwError(err);
+        })
+      )
+  }
+  public fetchDistrictMaster(): Observable<any> {
+    const headers = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        "Access-Control-Allow-Origin": "*"
+      })
+    };
+    let baseUrl = this.apiService.getBaseUrl();
+    let controllerUrl = this.apiService.getBaseControllerUrl();
+    let Url = baseUrl + controllerUrl + "/address" + "/fetchDistrictMaster";
+
+    return this.http.get(Url, headers)
+      .pipe(
+        catchError((err) => {
+          return throwError(err);
+        })
+      )
+  }
+
+
+  public fetchStateWiseDistrict(state: any): Observable<any> {
+    const headers = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        "Access-Control-Allow-Origin": "*"
+      })
+    };
+    let baseUrl = this.apiService.getBaseUrl();
+    let controllerUrl = this.apiService.getBaseControllerUrl();
+    let Url = baseUrl + controllerUrl + "/address" + "/fetchStateWiseDistrict?" + 'state=' + state;
+
+    return this.http.get(Url, headers)
+      .pipe(
+        catchError((err) => {
+          return throwError(err);
+        })
+      )
+  }
+
+  public fetchDistrictWiseTaluka(state: string, district: string): Observable<any> {
+    const headers = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        "Access-Control-Allow-Origin": "*"
+      })
+    };
+    let baseUrl = this.apiService.getBaseUrl();
+    let controllerUrl = this.apiService.getBaseControllerUrl();
+    let Url = baseUrl + controllerUrl + "/address" + "/fetchDistrictWiseTaluka?" + 'state=' + state + '&district=' + district;
+
+    return this.http.get(Url, headers)
       .pipe(
         catchError((err) => {
           return throwError(err);

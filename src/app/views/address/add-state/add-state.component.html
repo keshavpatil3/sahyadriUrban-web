@@ -11,11 +11,10 @@
                 <mat-form-field class="full-width mb-4" appearance="outline">
                     <mat-label>State Name</mat-label>
                     <input matInput placeholder="State Name" [maxLength]="30"
-                        oninput="this.value = this.value.toUpperCase()" formControlName="stateName">
+                    (input)="formatStateName($event)" formControlName="state">
                 </mat-form-field>
             <div class="flex">
-                <button mat-raised-button color="primary" *ngIf="editForm" (click)="submit()"
-                    [disabled]="addStateForm.invalid">
+                <button mat-raised-button color="primary" *ngIf="editForm">
                     {{ "SAVE" }}
                 </button>
                 <!-- <button mat-raised-button color="primary" (click)="updateVehicleBrand()" *ngIf="!editForm"

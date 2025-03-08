@@ -1,1 +1,72 @@
-<p>add-taluka works!</p>
+<mat-card class="p-0">
+    <mat-card-title class="">
+        <h1 class="text-lg mb-4">{{ data.title }}</h1>
+    </mat-card-title>
+    <mat-divider></mat-divider>
+    <mat-card-content class="!pt-4">
+        <form [formGroup]="addTalukaForm">
+            <div class="flex flex-wrap">
+                <div class="w-full md:w-1/2 md:pr-6">
+                    <div class="!pb-4">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>State</mat-label>
+                            <mat-select  required formControlName="state">
+                                <mat-option (onSelectionChange)="onStateSelection($event.source.value)" style="font-size: 12px;" *ngFor="let element of StateData"
+                                   
+                                    [value]="element.state">{{element.state}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                    </div>
+
+                </div>
+
+                <div class="w-full md:w-1/2 md:pr-6">
+                    <div class="!pb-4">
+                        <mat-form-field class="full-width" place appearance="outline">
+                            <mat-label>District</mat-label>
+                            <mat-select required formControlName="district">
+                                <mat-option style="font-size: 12px;" *ngFor="let element of districtData"
+                                    oninput="this.value = this.value.toUpperCase()"
+                                    [value]="element.district">{{element.district}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                    </div>
+
+                </div>
+
+                <div class="w-full md:w-1/2 md:pr-6">
+                    <div class="!pb-4">
+                        <mat-form-field class="full-width" place appearance="outline">
+                            <mat-label>Taluka</mat-label>
+                            <input   (input)="formatStateName($event)" matInput placeholder="Taluka" [maxLength]="30" formControlName="taluka"
+                                name="addressDetails"  autocomplete="off"
+                                required>
+                        </mat-form-field>
+
+                    </div>
+
+                </div>
+
+
+
+
+
+            </div>
+            <div class="flex">
+                <button mat-raised-button color="primary" *ngIf="editForm" (click)="submit()"
+                    [disabled]="addTalukaForm.invalid">
+                    {{ "SAVE" }}
+                </button>
+                <!-- <button mat-raised-button color="primary" (click)="updateVehicleBrand()" *ngIf="!editForm"
+                    [disabled]="addVehicleBrandForm.invalid">
+                    {{ "UPDATE" }}
+                </button> -->
+                <button mat-raised-button color="warn" class="ms-2" type="button" (click)="dialogRef.close(false)">
+                    Cancel
+                </button>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>

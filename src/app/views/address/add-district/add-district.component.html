@@ -1,1 +1,58 @@
-<p>add-district works!</p>
+<mat-card class="p-0">
+    <mat-card-title class="">
+        <h1 class="text-lg mb-4">{{ data.title }}</h1>
+    </mat-card-title>
+    <mat-divider></mat-divider>
+    <mat-card-content class="!pt-4">
+        <form [formGroup]="addDistrictForm">
+            <div class="flex flex-wrap">
+                <div class="w-full md:w-1/2 md:pr-6">
+                    <div class="!pb-4">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>State</mat-label>
+                            <mat-select required formControlName="state">
+                                <mat-option style="font-size: 12px;" *ngFor="let element of StateData"
+                                    oninput="this.value = this.value.toUpperCase()"
+                                    [value]="element.state">{{element.state}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                    </div>
+
+                </div>
+
+                <div class="w-full md:w-1/2 md:pr-6">
+                    <div class="!pb-4">
+                        <mat-form-field class="full-width" place appearance="outline">
+                            <mat-label>District</mat-label>
+                            <input matInput placeholder="District" (input)="formatStateName($event)" [maxLength]="30" formControlName="district"
+                                name="addressDetails"  autocomplete="off"
+                                required>
+                        </mat-form-field>
+
+                    </div>
+
+                </div>
+
+
+
+
+
+
+            </div>
+            <div class="flex">
+                <button mat-raised-button color="primary" *ngIf="editForm" (click)="submit()"
+                    [disabled]="addDistrictForm.invalid">
+                    {{ "SAVE" }}
+                </button>
+                <!-- <button mat-raised-button color="primary" (click)="updateVehicleBrand()" *ngIf="!editForm"
+                    [disabled]="addVehicleBrandForm.invalid">
+                    {{ "UPDATE" }}
+                </button> -->
+                <button mat-raised-button color="warn" class="ms-2" type="button" (click)="dialogRef.close(false)">
+                    Cancel
+                </button>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>

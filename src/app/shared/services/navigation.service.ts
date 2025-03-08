@@ -51,6 +51,19 @@ export class NavigationService {
       ]
 
     },
+    {
+      name: 'Religion & Caste',
+      type: 'dropDown',
+      tooltip: 'Address',
+      icon: 'more',
+      sub: [
+        { name: 'Religion', state: 'religion/religion-list' },
+        { name: 'Caste', state: 'religion/caste-list' },
+         
+
+      ]
+
+    },
   ];
 
   // Icon menu TITLE at the very top of navigation.

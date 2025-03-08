@@ -20,18 +20,32 @@ export class AddStateComponent implements OnInit {
   editForm: boolean = true;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<AddStateComponent>,) { }
+    public dialogRef: MatDialogRef<AddStateComponent>, private addressService: AddressService) { }
   addStateForm: FormGroup
-  submit() { }
   ngOnInit(): void {
-this.buildState()
+    this.buildState(this.data.payload)
   }
-  buildState() {
+  buildState(data:any) {
     this.addStateForm = new FormGroup({
-      stateName: new FormControl(null, [Validators.required]),
+      state: new FormControl(data.state, [Validators.required]),
 
     });
 
+
+  }
+  formatStateName(event: any) {
+    event.target.value = event.target.value.charAt(0).toUpperCase() + event.target.value.slice(1).toLowerCase();
+  }
+  
+  submit() {
+    this.addressService.addStateMaster(this.addStateForm.value).subscribe({
+      next: (response: any) => {
+        console.log(response)
+      },
+      error: (error) => {
+
+      }
+    })
   }
 
 }

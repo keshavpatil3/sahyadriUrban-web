@@ -7,5 +7,9 @@ import { config } from "config";
 
 export const environment = {
   production: false,
-  apiURL: config.apiUrl
+  // apiURL: config.apiUrl,
+
+
+  apiURL: 'https://asia-south1-billbuddy-76f97.cloudfunctions.net',
+  baseurl: 'https://asia-south1-billbuddy-76f97.cloudfunctions.net',
 };

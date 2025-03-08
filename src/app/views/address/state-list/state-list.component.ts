@@ -26,25 +26,29 @@ export class StateListComponent implements OnInit {
   pageIndex = 0;
   lastDocId = 0;
   constructor(private dialog: MatDialog, private addressService: AddressService, private snack: MatSnackBar, private loader: AppLoaderService,) { };
-  displayedColumns: string[] = ['position', 'companyName', 'edit'];
-  dataSource = new MatTableDataSource<State>([
-    { position: 1, stateName: 'Maharashtra' },
-    { position: 2, stateName: 'Karnataka' },
-    { position: 3, stateName: 'Gujarat' },
-    { position: 4, stateName: 'Rajasthan' },
-    { position: 5, stateName: 'Tamil Nadu' }
-  ]);
+  displayedColumns: string[] = ['position', 'state', 'edit'];
+  dataSource = new MatTableDataSource<State>();
 
   ngOnInit(): void {
-
+    this.fetchStateMaster()
   }
   pageChanged(event: any) {
 
   };
+  fetchStateMaster() {
+    this.addressService.fetchStateMaster().subscribe({
+      next: (response: any) => {
+        this.dataSource = response.data
+      },
+      error: (error) => {
+
+      }
+    })
+  }
   openPopUp(data: any = {}, isNew?) {
     debugger
     console.log("popdata", data)
-    let title = isNew ? 'Add new State' : 'Update State';
+    let title = isNew ? 'Add New State' : 'Update State';
     let dialogRef: MatDialogRef<any> = this.dialog.open(AddStateComponent, {
 
       width: '720px',
@@ -59,8 +63,8 @@ export class StateListComponent implements OnInit {
           return;
         }
         if (isNew) {
-          this.loader.open('Adding new Vehicle Company');
-          this.addressService.addNewState(res)
+          this.loader.open('Adding New State');
+          this.addressService.addStateMaster(res)
             .subscribe({
               next: (response: any) => {
                 // this.fetchAllState(0, this.pageSize, 0)
@@ -88,6 +92,7 @@ export class StateListComponent implements OnInit {
         // }
       })
   }
-  onKeyUpEvent(event:any){}
+
+  onKeyUpEvent(event: any) { }
 
 }

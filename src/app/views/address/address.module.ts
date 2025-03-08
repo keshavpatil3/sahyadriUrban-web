@@ -15,6 +15,7 @@ import { SharedMaterialModule } from 'app/shared/shared-material.module';
 import { CityListComponent } from './city-list/city-list.component';
 import { SharedDirectivesModule } from 'app/shared/directives/shared-directives.module';
 import { MaterialModule } from 'app/shared/models/material.model';
+import { AddCityComponent } from './add-city/add-city.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { MaterialModule } from 'app/shared/models/material.model';
     AddLocationComponent,
     TalukaListComponent,
     AddTalukaComponent,
-    CityListComponent
+    CityListComponent,
+    AddCityComponent
   ],
   imports: [
     CommonModule,
