@@ -58,6 +58,7 @@ export class StateListComponent implements OnInit {
   
   
   submit() {
+    debugger
     if (this.isEdit && this.editIndex!== null) {
       const existingState = this.dataSource.data[this.editIndex];
     
@@ -89,6 +90,15 @@ export class StateListComponent implements OnInit {
         },
         error: (error) => console.error('Error updating state:', error)
       });
+    }
+    else {
+      const updatedState = { state: this.stateForm.value.state };
+      this.addressService.addStateMaster(updatedState).subscribe({
+        next:(response:any)=>{
+          this.snackBar.open(response.message ,'ok');
+          this.stateForm.get('state').reset()
+        }
+      })
     }
   }
   resetForm() {
@@ -122,4 +132,5 @@ export class StateListComponent implements OnInit {
     }
   }
   
+  deleteState(data:any){}
 }

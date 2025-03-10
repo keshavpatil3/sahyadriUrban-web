@@ -61,10 +61,10 @@
   .upload-button mat-icon {
     font-size: 20px;
   }
-  .table-container {
-    max-height: 400px;
-    overflow-y: auto;
-  }
+  // .table-container {
+  //   max-height: 400px;
+  //   overflow-y: auto;
+  // }
   
   th.mat-header-cell {
     position: sticky;
@@ -76,28 +76,32 @@
   }
   
   /* Fix misalignment between th and td */
-  .custom-table {
-    border-collapse: collapse;
-    width: 100%;
-    table-layout: fixed; /* 👈 Ensures uniform column width */
-  }
+  // .custom-table {
+  //   border-collapse: collapse;
+  //   width: 100%;
+  //   table-layout: fixed; /* 👈 Ensures uniform column width */
+  // }
   
   /* Ensure Text Alignment is the Same for Both Headers & Cells */
-  .custom-table th,
-  .custom-table td {
-    padding: 12px;
-    font-size: 16px !important;
-    text-align: center !important; /* 👈 Forces consistent alignment */
-    vertical-align: middle !important;
-  }
+  // .custom-table th,
+  // .custom-table td {
+  //   padding: 12px;
+  //   font-size: 16px !important;
+  //   text-align: center !important; /* 👈 Forces consistent alignment */
+  //   vertical-align: middle !important;
+  // }
   
   /* Ensure Table Rows Have Proper Border */
   .custom-table tr {
-    border-bottom: 2px solid gray !important;
+    border-bottom: 1px solid gray !important;
   }
   
   /* Remove Any Extra Default Margin from Material Table Cells */
   .mat-cell, .mat-header-cell {
     padding: 12px !important;
+  }
+  .card-height{
+    height: 250px;
+    overflow: auto;
   }
   
