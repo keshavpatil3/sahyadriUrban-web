@@ -132,6 +132,23 @@ export class AddressService {
       )
   }
 
+//Update an existing state
+public updateStateMaster(stateId: number, data: any): Observable<any> {
+  let baseUrl = this.apiService.getBaseUrl();
+  let controllerUrl = this.apiService.getBaseControllerUrl();
+  let Url = `${baseUrl}${controllerUrl}/address/updateStateMaster/${stateId}`;
+
+  console.log("Updating State with URL:", Url, "Payload:", data); // Debugging
+
+  return this.http.put(Url, data).pipe(
+    catchError((err) => {
+      console.error("Error in update API:", err);
+      return throwError(err);
+    })
+  );
+}
+
+
   public fetchDistrictWiseTaluka(state: string, district: string): Observable<any> {
     const headers = {
       headers: new HttpHeaders({
@@ -150,4 +167,5 @@ export class AddressService {
         })
       )
   }
+  
 }
