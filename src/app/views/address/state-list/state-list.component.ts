@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { AddressService } from '../address.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { ViewChild } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export interface State {
   id?: number;
@@ -24,8 +25,10 @@ export class StateListComponent implements OnInit {
   editIndex: number | null = null;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private fb: FormBuilder, private addressService: AddressService) {}
-
+  constructor(private fb: FormBuilder, private addressService: AddressService,private snackBar: MatSnackBar) {}
+  showSnackbar(message: string) {
+    this.snackBar.open(message, 'Close', { duration: 2000 });
+  }
   ngOnInit(): void {
     this.stateForm = this.fb.group({
       state: ['', Validators.required]
@@ -55,47 +58,39 @@ export class StateListComponent implements OnInit {
   
   
   submit() {
-    if (this.stateForm.valid) {
-      const updatedState = { state: this.stateForm.value.state };
-  
-      if (this.isEdit && this.editIndex !== null) {
-        const existingState = this.dataSource.data[this.editIndex];
-  
-        if (!existingState || !existingState.id) {
-          console.error('Error: Missing state ID for update.');
-          return;
-        }
-  
-        this.addressService.updateStateMaster(existingState.id, updatedState).subscribe({
-          next: (response) => {
-            console.log('Update Response:', response);
-  
-            // ✅ Update the state in the local array
-            this.dataSource.data[this.editIndex] = { ...existingState, ...updatedState };
-  
-            // ✅ Reassign data to force Angular to detect changes
-            this.dataSource = new MatTableDataSource(this.dataSource.data);
-            this.dataSource.paginator = this.paginator;
-  
-            this.resetForm();
-          },
-          error: (error) => console.error('Error updating state:', error)
-        });
-  
-      } else {
-        // ✅ Adding new state
-        this.addressService.addStateMaster(updatedState).subscribe({
-          next: (response: any) => {
-            console.log('Add Response:', response);
-            this.fetchStateMaster(); // ✅ Reload the full list after adding
-            this.resetForm();
-          },
-          error: (error) => console.error('Error adding state:', error)
-        });
+    if (this.isEdit && this.editIndex!== null) {
+      const existingState = this.dataSource.data[this.editIndex];
+    
+      if (!existingState ||!existingState.id) {
+        console.error('Error: Missing state ID for update.');
+        return;
       }
+      const updatedState = { state: this.stateForm.value.state };
+
+    
+      const updateData = {
+        oldState: existingState.state,
+        newState: updatedState.state
+      };
+    
+      this.addressService.editStateMaster(existingState.id, updateData).subscribe({
+        next: (response) => {
+          console.log('Update Response:', response);
+          this.showSnackbar('State Updated Successfully!');
+    
+          // Update the state in the local array
+          this.dataSource.data[this.editIndex].state = updateData.newState;
+    
+          // Reassign data to force Angular to detect changes
+          this.dataSource = new MatTableDataSource(this.dataSource.data);
+          this.dataSource.paginator = this.paginator;
+    
+          this.resetForm();
+        },
+        error: (error) => console.error('Error updating state:', error)
+      });
     }
   }
-  
   resetForm() {
     this.stateForm.reset();
     this.isEdit = false;

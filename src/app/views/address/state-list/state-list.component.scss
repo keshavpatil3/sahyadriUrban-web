@@ -61,4 +61,43 @@
   .upload-button mat-icon {
     font-size: 20px;
   }
-
+  .table-container {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+  
+  th.mat-header-cell {
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 2;
+    padding: 12px !important;
+    text-align: center !important;
+  }
+  
+  /* Fix misalignment between th and td */
+  .custom-table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed; /* 👈 Ensures uniform column width */
+  }
+  
+  /* Ensure Text Alignment is the Same for Both Headers & Cells */
+  .custom-table th,
+  .custom-table td {
+    padding: 12px;
+    font-size: 16px !important;
+    text-align: center !important; /* 👈 Forces consistent alignment */
+    vertical-align: middle !important;
+  }
+  
+  /* Ensure Table Rows Have Proper Border */
+  .custom-table tr {
+    border-bottom: 2px solid gray !important;
+  }
+  
+  /* Remove Any Extra Default Margin from Material Table Cells */
+  .mat-cell, .mat-header-cell {
+    padding: 12px !important;
+  }
+  

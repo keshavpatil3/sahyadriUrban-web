@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApiService, } from 'app/shared/services/auth/api.service';
 import { catchError, Observable, throwError } from 'rxjs';
@@ -132,22 +132,25 @@ export class AddressService {
       )
   }
 
-//Update an existing state
-public updateStateMaster(stateId: number, data: any): Observable<any> {
-  let baseUrl = this.apiService.getBaseUrl();
-  let controllerUrl = this.apiService.getBaseControllerUrl();
-  let Url = `${baseUrl}${controllerUrl}/address/updateStateMaster/${stateId}`;
-
-  console.log("Updating State with URL:", Url, "Payload:", data); // Debugging
-
-  return this.http.put(Url, data).pipe(
-    catchError((err) => {
-      console.error("Error in update API:", err);
-      return throwError(err);
-    })
-  );
-}
-
+  public editStateMaster(stateId: number, data: any): Observable<any> {
+    let baseUrl = this.apiService.getBaseUrl();
+    let controllerUrl = this.apiService.getBaseControllerUrl();
+    let Url = `${baseUrl}${controllerUrl}/address/editStateMaster/${stateId}`;
+  
+    console.log("Updating State with URL:", Url, "Payload:", data); // Debugging
+  
+    return this.http.put(Url, data).pipe(
+      catchError((err: HttpErrorResponse) => {
+        console.error("Error in update API:", err);
+        if (err.status === 404) {
+          console.error("404 Not Found error. Check the URL and backend API.");
+        } else {
+          console.error("Error updating state:", err);
+        }
+        return throwError(err);
+      })
+    );
+  }
 
   public fetchDistrictWiseTaluka(state: string, district: string): Observable<any> {
     const headers = {
