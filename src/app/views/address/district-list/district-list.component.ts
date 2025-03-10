@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
 import { AddDistrictComponent } from '../add-district/add-district.component';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 export interface State {
 
 }
@@ -23,14 +24,18 @@ export class DistrictListComponent implements OnInit {
   pageSize = 20;
   pageIndex = 0;
   lastDocId = 0;
-  state: any
+  state: any;
+  isEdit = false;
+  showTable = false;
+  addDistrictForm: FormGroup
   StateData: any[] = []
   constructor(private dialog: MatDialog, private addressService: AddressService, private snack: MatSnackBar, private loader: AppLoaderService,) { };
   displayedColumns: string[] = ['position', 'district', 'edit'];
   dataSource = new MatTableDataSource<State>([]);
 
   ngOnInit(): void {
-    this.fetchStateMaster()
+    this.fetchStateMaster();
+    this.buildState()
   }
   pageChanged(event: any) {
 
@@ -40,7 +45,8 @@ export class DistrictListComponent implements OnInit {
     this.addressService.fetchStateMaster().subscribe({
       next: (response: any) => {
         this.StateData = response.data.resultArray;
-
+        this.state = response.data.resultArray[0].state;
+        this.fetchStateWiseDistrict(this.state)
       },
       error: (error) => {
 
@@ -52,6 +58,7 @@ export class DistrictListComponent implements OnInit {
     this.addressService.fetchStateWiseDistrict(state).subscribe({
       next: (response: any) => {
         this.dataSource = response.data.resultArray;
+
 
       },
       error: (error) => {
@@ -107,12 +114,72 @@ export class DistrictListComponent implements OnInit {
         // }
       })
   }
-  onKeyUpEvent(event: any) { }
-
-  onStateSelection(event: string) {
+  onEdit(data: any) {
     debugger
+    this.isEdit = true;
+    this.addDistrictForm.get('district').patchValue(data.district)
+  }
+  toggleTable() {
+    this.showTable = !this.showTable;
+    
+    if (this.showTable) {
+      this.fetchStateWiseDistrict(this.state); // Refresh data when table is shown
+    }
+  }
+  onStateSelection(event: string) {
+    this.isEdit=false
+    this.addDistrictForm.get('district').reset()
     this.state = event;
     this.fetchStateWiseDistrict(this.state)
   }
 
+  buildState() {
+    this.addDistrictForm = new FormGroup({
+      state: new FormControl(null, [Validators.required]),
+      district: new FormControl(null, [Validators.required]),
+
+
+
+
+    });
+
+  }
+  // fetchStateMaster() {
+  //   this.addressService.fetchStateMaster().subscribe({
+  //     next: (response: any) => {
+  //       this.StateData = response.data.resultArray;
+  //     },
+  //     error: (error) => {
+
+  //     }
+  //   })
+  // }
+  formatStateName(event: any) {
+    event.target.value = event.target.value.charAt(0).toUpperCase() + event.target.value.slice(1).toLowerCase();
+  }
+
+  submit() {
+    this.loader.open('Please wait...');
+    if(this.isEdit !== true) {
+      this.addressService.addDistrictMaster(this.addDistrictForm.value).subscribe({
+        next: (response: any) => {
+          this.loader.close();
+          if (response.code == "SUCCESS") {
+            this.state = response.data.state;
+            this.fetchStateWiseDistrict(this.state);
+            this.addDistrictForm.get('district').reset();
+            this.isEdit=false
+          }
+          console.log(response)
+        },
+        error: (error) => {
+  
+        }
+      })
+    }
+    else {
+
+    }
+ 
+  }
 }

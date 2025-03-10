@@ -23,12 +23,12 @@
   
 
   <!-- Card for State List & Search (Hidden when showTable is false) -->
-  <mat-card class="p-4" *ngIf="showTable">
+  <mat-card class="pt-2 card-height" *ngIf="showTable">
     <div class="flex flex-col md:flex-row justify-between items-center mb-4">
       <!-- Search Input -->
-      <mat-form-field class="brand mr-2" appearance="outline">
+      <!-- <mat-form-field class="brand mr-2" appearance="outline">
         <input matInput type="text" class="form-control" placeholder="Search State" (keyup)="onKeyUpEvent($event)">
-      </mat-form-field>
+      </mat-form-field> -->
     </div>
 
     <!-- State Table -->
@@ -55,7 +55,7 @@
           </td>
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns ;sticky:true"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
       <!-- <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
