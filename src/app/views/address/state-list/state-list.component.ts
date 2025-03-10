@@ -38,7 +38,7 @@ export class StateListComponent implements OnInit {
   fetchStateMaster() {
     this.addressService.fetchStateMaster().subscribe({
       next: (response: any) => {
-        this.dataSource = response.data
+        this.dataSource = response.data.resultArray
       },
       error: (error) => {
 
