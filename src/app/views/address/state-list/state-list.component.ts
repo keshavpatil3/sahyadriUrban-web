@@ -60,34 +60,46 @@ export class StateListComponent implements OnInit {
   submit() {
     if (this.isEdit && this.editIndex!== null) {
       const existingState = this.dataSource.data[this.editIndex];
-    
+      
       if (!existingState ||!existingState.id) {
         console.error('Error: Missing state ID for update.');
         return;
       }
       const updatedState = { state: this.stateForm.value.state };
-
-    
+  
+      
       const updateData = {
         oldState: existingState.state,
         newState: updatedState.state
       };
-    
+      
       this.addressService.editStateMaster(existingState.id, updateData).subscribe({
         next: (response) => {
           console.log('Update Response:', response);
           this.showSnackbar('State Updated Successfully!');
-    
+      
           // Update the state in the local array
           this.dataSource.data[this.editIndex].state = updateData.newState;
-    
+      
           // Reassign data to force Angular to detect changes
           this.dataSource = new MatTableDataSource(this.dataSource.data);
           this.dataSource.paginator = this.paginator;
-    
+      
           this.resetForm();
         },
         error: (error) => console.error('Error updating state:', error)
+      });
+    } else {
+      // Add new state API call
+      const newState = this.stateForm.value.state;
+      this.addressService.addStateMaster({ state: newState }).subscribe({
+        next: (response) => {
+          console.log('Add Response:', response);
+          this.showSnackbar('State Added Successfully!');
+          this.fetchStateMaster(); // Refresh data after adding new state
+          this.resetForm();
+        },
+        error: (error) => console.error('Error adding state:', error)
       });
     }
   }
@@ -121,5 +133,11 @@ export class StateListComponent implements OnInit {
       this.stateForm.reset();
     }
   }
-  
+  deleteState(index: number) {
+    this.dataSource.data.splice(index, 1);
+    this.dataSource = new MatTableDataSource(this.dataSource.data);
+    this.showSnackbar('State deleted successfully!');
+
+  }
+
 }
