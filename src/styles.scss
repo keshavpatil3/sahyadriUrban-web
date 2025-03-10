@@ -130,3 +130,14 @@
 .mat-mdc-option {
   min-height: 30px;
 }
+::ng-deep .mdc-data-table__cell {
+  box-sizing: border-box;
+  overflow: hidden;
+  text-align: left;
+  text-overflow: ellipsis;
+  font-size: 12px;
+}
+
+::ng-deep .mat-mdc-row:hover .mat-mdc-cell {
+  background-color:whitesmoke;
+}
