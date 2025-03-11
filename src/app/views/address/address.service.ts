@@ -132,10 +132,10 @@ export class AddressService {
       )
   }
 
-  public editStateMaster(stateId: number, data: any): Observable<any> {
+  public editStateMaster(data: any): Observable<any> {
     let baseUrl = this.apiService.getBaseUrl();
     let controllerUrl = this.apiService.getBaseControllerUrl();
-    let Url = `${baseUrl}${controllerUrl}/address/editStateMaster/${stateId}`;
+    let Url = `${baseUrl}${controllerUrl}/address/editStateMaster`;
   
     console.log("Updating State with URL:", Url, "Payload:", data); // Debugging
   
